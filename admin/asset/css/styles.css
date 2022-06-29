@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --main-bg-color: #4564e5;
+    --main-text-color: #ffcf4a;
+    --second-text-color: #ffff;
+    --second-bg-color: #c1efde;
+}
+
+body {
+    background: linear-gradient(-50deg, #ffd369 50%, #fff 50.1%);
+}
+
+footer {
+    background-color: #FCFCFC;
+    opacity: 0.8;
+}
+
+footer:hover {
+    background-color: #cccc;
+    opacity: 1;
+}
+
+.primary-text {
+    color: var(--main-bg-color);
+    font-size: 28px;
+}
+
+.second-text {
+    color: var(--second-text-color);
+}
+
+.primary-bg {
+    background-color: var(--main-bg-color);
+}
+
+.secondary-bg {
+    background-color: var(--second-text-color);
+}
+
+.rounded-full {
+    border-radius: 100%;
+}
+
+.main-color {
+    background-color: var(--main-text-color);
+}
+
+.danger-text {
+    color: #f71e1e;
+}
+
+.editbtn {
+    background-color: #ffff;
+    color: #4564e5;
+    border-color: #4564e5;
+}
+
+.editbtn:hover {
+    background-color: #4564e5;
+    color: #fff;
+}
+
+.deletebtn {
+    background-color: #ffff;
+    border-color: #f71e1e;
+}
+
+.detailbtn {
+    background-color: #ffff;
+    border-color: #009d63;
+    color: #009d63;
+}
+
+.detailbtn:hover {
+    background-color: #009d63;
+    border-color: #ffff;
+    color: #fff;
+}
+
+.deletebtn:hover {
+    background-color: #f71e1e;
+    color: #ffff;
+}
+
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+#menu-toggle {
+    cursor: pointer;
+}
+
+.sidebar {
+    background-color: #4564e5;
+}
+
+.sidebar-heading .list-group a i:hover {
+    background-color: #009d63;
+}
+
+.list-group-item {
+    border: none;
+    padding: 20px 30px;
+    size: 28px;
+}
+
+.list-group-item.active {
+    background-color: transparent;
+    color: var(--main-text-color);
+    font-weight: bold;
+    border: none;
+}
+
+.card {
+    width: 100%;
+}
