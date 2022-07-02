@@ -146,6 +146,9 @@ if (isset($_SESSION['id_user'])) {
                     <a href="industri.php" class="sidebar-link">
                         <i class="bx bx-briefcase"> </i> <span>Industri</span></i>
                     </a>
+                    <a href="produk.php" class="sidebar-link">
+                        <i class='bx bxs-shopping-bag'></i> <span>Produk</span></i>
+                    </a>
                     <a href="status.php" class="sidebar-link">
                         <i class="bx bx-loader"> </i> <span>Status</span></i>
                     </a>
@@ -160,7 +163,7 @@ if (isset($_SESSION['id_user'])) {
                     <a href="akun.php" class="sidebar-link">
                         <i class="bx bxs-user-account"> </i> <span>Pengaturan</span></i>
                     </a>
-                    <a href="./" class="sidebar-link" style="color: red;">
+                    <a href="logout.php" class="sidebar-link" style="color: red;">
                         <i class="bx bx-log-out-circle"> </i> <span>Log Out</span></i>
                     </a>
                 </div>

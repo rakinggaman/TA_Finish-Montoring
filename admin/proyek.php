@@ -147,6 +147,9 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                     <a href="industri.php" class="sidebar-link">
                         <i class="bx bx-briefcase"> </i> <span>Industri</span></i>
                     </a>
+                    <a href="produk.php" class="sidebar-link">
+                        <i class='bx bxs-shopping-bag'></i> <span>Produk</span></i>
+                    </a>
                     <a href="status.php" class="sidebar-link">
                         <i class="bx bx-loader"> </i> <span>Status</span></i>
                     </a>
@@ -161,7 +164,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                     <a href="akun.php" class="sidebar-link">
                         <i class="bx bxs-user-account"> </i> <span>Pengaturan</span></i>
                     </a>
-                    <a href="./" class="sidebar-link" style="color: red;">
+                    <a href="logout.php" class="sidebar-link" style="color: red;">
                         <i class="bx bx-log-out-circle"> </i> <span>Log Out</span></i>
                     </a>
                 </div>
@@ -387,23 +390,149 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                         $sql_pjk .= " order by `pelanggan` DESC limit $posisi, $batas";
                                         $query_pjk = mysqli_query($koneksi, $sql_pjk);
                                         $no = 1;
-                                        while ($data_pjk = mysqli_fetch_row($query_pjk)) {
+                                        while ($data_pjk = mysqli_fetch_array($query_pjk)) {
                                             $id = $data_pjk[0];
-                                            $pelanggan = $data_pjk[1];
-                                            $domisili = $data_pjk[2];
-                                            $industri = $data_pjk[3];
-                                            $produk = $data_pjk[4];
+                                            // $pelanggan = $data_pjk[1];
+                                            // $domisili = $data_pjk[2];
+                                            // $industri = $data_pjk[3];
+                                            // $produk = $data_pjk[4];
+
                                         ?>
                                             <tr>
                                                 <td data-label="No"><?php echo $no; ?></td>
-                                                <td data-label="Pelanggan"><?php echo $pelanggan; ?></td>
-                                                <td data-label="Domisili"><?php echo $domisili; ?></td>
-                                                <td data-label="Industri"><?php echo $industri; ?></td>
-                                                <td data-label="Produk"> <?php echo $produk; ?></td>
+                                                <td data-label="Pelanggan"><?php echo $data_pjk['pelanggan']; ?></td>
+                                                <td data-label="Domisili"><?php echo $data_pjk['domisili']; ?></td>
+                                                <td data-label="Industri"><?php echo $data_pjk['industri']; ?></td>
+                                                <td data-label="Produk"> <?php echo $data_pjk['produk']; ?></td>
                                                 <td data-label="Aksi">
                                                     <a href="detail_proyek.php?data=<?php echo $id; ?>" class="btn detailbtn second-text btn-sm"> <i class="fas fa-eye me-2"></i>Detail</a>
-                                                    <a href="edit_proyek.php?data=<?php echo $id; ?>" class="btn editbtn second-text btn-sm">
-                                                        <i class="fas fa-edit"></i> Edit</a>
+                                                    <a class="btn editbtn second-text btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModaledit<?= $data_pjk['kode_projek'] ?>"> <i class="fas fa-edit me-2"></i>Edit</a>
+                                                    <div class="modal fade" id="exampleModaledit<?= $data_pjk['kode_projek'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel ">Edit Data Proyek</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form class="form-horizontal" method="post" action="konfirmasi_edit_proyek.php">
+                                                                        <input type="hidden" name="kode" value="<?= $data_pjk['kode_projek'] ?>">
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Pelanggan :</label>
+                                                                            <input type="text" class="form-control" id="part_name" name="pelanggan" value="<?= $data_pjk['pelanggan']; ?>" />
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Kode Pelanggan :</label>
+
+                                                                            <input type="text" class="form-control" id="part_name" name="kode pelanggan" value="<?= $data_pjk['kode_pelanggan']; ?>" />
+
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Domisili :</label>
+
+                                                                            <select class="form-control" id="domisili" name="domisili">
+                                                                                <option value="0">- Pilih Domisili -</option>
+                                                                                <?php
+                                                                                $sql_j = "select `kode_domisili`, `domisili` from `domisili` order by `kode_domisili`";
+                                                                                $query_j = mysqli_query($koneksi, $sql_j);
+                                                                                while ($data_j = mysqli_fetch_row($query_j)) {
+                                                                                    $kode_dom = $data_j[0];
+                                                                                    $domisili = $data_j[1];
+                                                                                ?>
+                                                                                    <option value="<?php echo $kode_dom; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
+                                                                                        <?php echo $domisili; ?><?php } ?>
+                                                                            </select>
+
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Industri :</label>
+                                                                            <select class="form-control" id="industri" name="industri">
+                                                                                <option value="0">- Pilih Industri -</option>
+                                                                                <?php
+                                                                                $sql_j = "select `kode_industri`, `industri` from `industri` order by `kode_industri`";
+                                                                                $query_j = mysqli_query($koneksi, $sql_j);
+                                                                                while ($data_j = mysqli_fetch_row($query_j)) {
+                                                                                    $kode_dom = $data_j[0];
+                                                                                    $domisili = $data_j[1];
+                                                                                ?>
+                                                                                    <option value="<?php echo $kode_dom; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
+                                                                                        <?php echo $domisili; ?><?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Produk :</label>
+                                                                            <select class="form-control" id="produk" name="produk">
+                                                                                <option value="0">- Pilih produk -</option>
+                                                                                <?php
+                                                                                $sql_j = "select `kode_produk`, `produk` from `produk` order by `kode_produk`";
+                                                                                $query_j = mysqli_query($koneksi, $sql_j);
+                                                                                while ($data_j = mysqli_fetch_row($query_j)) {
+                                                                                    $kode_dom = $data_j[0];
+                                                                                    $domisili = $data_j[1];
+                                                                                ?>
+                                                                                    <option value="<?php echo $kode_dom; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
+                                                                                        <?php echo $domisili; ?><?php } ?>
+                                                                            </select>
+
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Instagram :</label>
+                                                                            <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Isi Instagram" value="<?= $data_pjk['instagram']; ?>" />
+
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Facebook :</label>
+                                                                            <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Isi Facebook" value="<?= $data_pjk['facebook']; ?>" />
+
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Nama Perwakilan :</label>
+                                                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Isi Nama Perwakilan" value="<?= $data_pjk['nama']; ?>" />
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Wa :</label>
+                                                                            <input type="text" class="form-control" id="wa" name="wa" placeholder="Isi Whatsapp Perwakilan" value="<?= $data_pjk['wa']; ?>" />
+
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Status :</label>
+                                                                            <select class="form-control" id="status" name="status">
+                                                                                <option value="0">- Pilih Status -</option>
+                                                                                <?php
+                                                                                $sql_j = "select `kode_status`, `status` from `status` order by `kode_status`";
+                                                                                $query_j = mysqli_query($koneksi, $sql_j);
+                                                                                while ($data_j = mysqli_fetch_row($query_j)) {
+                                                                                    $kode_dom = $data_j[0];
+                                                                                    $domisili = $data_j[1];
+                                                                                ?>
+                                                                                    <option value="<?php echo $kode_dom; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
+                                                                                        <?php echo $domisili; ?><?php } ?>
+                                                                            </select>
+
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Gambar :</label>
+
+                                                                            <input type="file" class="form-control" id="gambar_projek" name="gambar_projek" value="<?php if (!empty($_SESSION['gambar_projek'])) {
+                                                                                                                                                                        echo $_SESSION['gambar_projek'];
+                                                                                                                                                                    } ?>" />
+                                                                            <h7> <span style="color: red;">maksimal 2mb</span> </h7>
+
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="recipient-name" class="col-form-label float-start">Harga :</label>
+                                                                            <input type="text" class="form-control" id="harga" name="harga" value="<?= $data_pjk['harga']; ?>" />
+
+                                                                            <button type="submit" class="btn btn-primary second-text float-end mt-5 mb-3 "> <i class="bx bx-edit me-2"></i>Edit </button>
+                                                                        </div>
+
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
                                                     <a href="javascript:if(confirm('Anda yakin ingin menghapus data 
                       <?php echo $pelanggan . ' - ' . $domisili; ?>?'))
                       window.location.href = 'proyek.php?aksi=hapus&data=<?php echo

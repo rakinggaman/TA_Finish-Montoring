@@ -129,6 +129,9 @@
                     <a href="industri.php" class="sidebar-link">
                         <i class="bx bx-briefcase"> </i> <span>Industri</span></i>
                     </a>
+                    <a href="produk.php" class="sidebar-link">
+                        <i class='bx bxs-shopping-bag'></i> <span>Produk</span></i>
+                    </a>
                     <a href="status.php" class="sidebar-link">
                         <i class="bx bx-loader"> </i> <span>Status</span></i>
                     </a>

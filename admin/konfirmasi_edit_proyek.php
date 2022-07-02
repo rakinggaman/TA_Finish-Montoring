@@ -2,7 +2,7 @@
 session_start();
 include('../koneksi/koneksi.php');
 if (isset($_SESSION['kode_projek'])) {
-  $kode_projek      = $_SESSION['kode_projek'];
+  $kode_projek      = $_SESSION['kode'];
   $pelanggan        = $_POST['pelanggan'];
   $kode_pelanggan   = $_POST['kode_pelanggan'];
   $kode_domisili    = $_POST['domisili'];

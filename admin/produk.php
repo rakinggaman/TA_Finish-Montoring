@@ -2,10 +2,10 @@
 include('../koneksi/koneksi.php');
 if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
     if ($_GET['aksi'] == 'hapus') {
-        $kode_domisili = $_GET['data'];
-        //hapus domisili
-        $sql_dh = "delete from `domisili`
-  	where `kode_domisili` = '$kode_domisili'";
+        $kode_produk = $_GET['data'];
+        //hapus produk
+        $sql_dh = "delete from `produk`
+  	where `kode_produk` = '$kode_produk'";
         mysqli_query($koneksi, $sql_dh);
     }
 }
@@ -31,7 +31,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <!--Boxicons CDN LINK-->
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
-    <title>Domisili</title>
+    <title>produk</title>
 </head>
 <style>
     body {
@@ -173,7 +173,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
             </div>
             <div class="content">
                 <div class="content-header d-flex align-items-center justify-content-between">
-                    <h2 class="content-title">Domisili</h2>
+                    <h2 class="content-title">produk</h2>
 
                     <div class="menu-icons d-flex align-items-center gap-2">
                         <a href="profile.php"> <i class="bx bx-user" style="font-size: 30px;"></i></a>
@@ -185,15 +185,15 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Domisili</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Tambah Data produk</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form class="form-horizontal" method="post" action="konfirmasi_tambah_domisili.php">
+                                <form class="form-horizontal" method="post" action="konfirmasi_tambah_produk.php">
 
                                     <div class="mb-3">
-                                        <label for="recipient-name" class="col-form-label">Domisili :</label>
-                                        <input type="text" class="form-control" id="part_name" name="domisili" placeholder="Isi Domisili" />
+                                        <label for="recipient-name" class="col-form-label">produk :</label>
+                                        <input type="text" class="form-control" id="part_name" name="produk" placeholder="Isi produk" />
                                         <button type="submit" class="btn btn-primary second-text float-end mt-5 mb-3 "> <i class="fas fa-plus me-2"></i>Tambah </button>
 
                                     </div>
@@ -208,14 +208,14 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                 <?php if (!empty($_GET['notif'])) { ?>
                     <?php if ($_GET['notif'] == "editkosong") { ?>
                         <div class="alert alert-danger" role="alert">
-                            Maaf data domisili wajib di isi</div>
+                            Maaf data produk wajib di isi</div>
                     <?php } ?>
                 <?php } ?>
 
                 <div class="container-fluid ">
                     <div class="row my-5">
 
-                        <form method="get" action="domisili.php">
+                        <form method="get" action="produk.php">
                             <div class="row ">
 
                                 <div class="col-md-4 bottom-10 ">
@@ -238,7 +238,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                 <thead>
                                     <tr>
                                         <th scope="col" width="50">No</th>
-                                        <th scope="col">Domisili</th>
+                                        <th scope="col">produk</th>
                                         <th scope="col">Aksi</th>
 
                                     </tr>
@@ -253,37 +253,37 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                         $halaman = $_GET['halaman'];
                                         $posisi = ($halaman - 1) * $batas;
                                     }
-                                    //menampilkan data domisili
-                                    $sql_h = "select `kode_domisili`, `domisili` from `domisili` ";
+                                    //menampilkan data produk
+                                    $sql_h = "select `kode_produk`, `produk` from `produk` ";
                                     if (isset($_GET["katakunci"])) {
-                                        $katakunci_domisili = $_GET["katakunci"];
-                                        $sql_h .= " where `domisili` LIKE '%$katakunci_domisili%'";
+                                        $katakunci_produk = $_GET["katakunci"];
+                                        $sql_h .= " where `produk` LIKE '%$katakunci_produk%'";
                                     }
-                                    $sql_h .= "order by `domisili` DESC limit $posisi, $batas";
+                                    $sql_h .= "order by `produk` DESC limit $posisi, $batas";
                                     $query_h = mysqli_query($koneksi, $sql_h);
                                     $no = 1;
                                     while ($data_h = mysqli_fetch_row($query_h)) {
-                                        $kode_domisili = $data_h[0];
-                                        $domisili = $data_h[1];
+                                        $kode_produk = $data_h[0];
+                                        $produk = $data_h[1];
                                     ?>
                                         <tr>
                                             <td data-label="No"><?php echo $no; ?></td>
-                                            <td data-label="Domisili"><?php echo $domisili; ?></td>
+                                            <td data-label="produk"><?php echo $produk; ?></td>
                                             <td data-label="Aksi">
-                                                <a class="btn editbtn second-text btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModaledit<?= $kode_domisili ?>"> <i class="fas fa-edit me-2"></i>Edit</a>
-                                                <div class="modal fade" id="exampleModaledit<?= $kode_domisili ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <a class="btn editbtn second-text btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModaledit<?= $kode_produk ?>"> <i class="fas fa-edit me-2"></i>Edit</a>
+                                                <div class="modal fade" id="exampleModaledit<?= $kode_produk ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Domisili</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data produk</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form class="form-horizontal" method="post" action="konfirmasi_edit_domisili.php">
-                                                                    <input type="hidden" name="kode" value="<?= $kode_domisili ?>">
+                                                                <form class="form-horizontal" method="post" action="konfirmasi_edit_produk.php">
+                                                                    <input type="hidden" name="kode" value="<?= $kode_produk ?>">
                                                                     <div class="mb-3">
-                                                                        <label for="recipient-name" class="col-form-label float-start">Domisili :</label>
-                                                                        <input type="text" class="form-control" id="domisili" name="domisili" value="<?php echo $domisili; ?>">
+                                                                        <label for="recipient-name" class="col-form-label float-start">produk :</label>
+                                                                        <input type="text" class="form-control" id="produk" name="produk" value="<?php echo $produk; ?>">
                                                                         <button type="submit" class="btn btn-primary second-text float-end mt-5 mb-3 "> <i class="bx bx-edit me-2"></i>Edit </button>
 
                                                                     </div>
@@ -297,8 +297,8 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                 </div>
 
                                                 <a href="javascript:if(confirm('Anda yakin ingin menghapus data?
-                                                        <?php echo $domisili; ?>?'))	window.location.href = 'domisili.php?aksi=hapus&data=<?php echo
-                                                                                                                                                $kode_domisili; ?>'" class="btn deletebtn           danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
+                                                        <?php echo $produk; ?>?'))	window.location.href = 'produk.php?aksi=hapus&data=<?php echo
+                                                                                                                                            $kode_produk; ?>'" class="btn deletebtn           danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
 
 
 
@@ -310,7 +310,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                             <div class="card-footer clearfix">
                                 <?php
                                 //Menghitung jumlah
-                                $sql_jum = "SELECT `kode_domisili`,`domisili` FROM `domisili` order by `kode_domisili` ";
+                                $sql_jum = "SELECT `kode_produk`,`produk` FROM `produk` order by `kode_produk` ";
                                 $query_jum = mysqli_query($koneksi, $sql_jum);
                                 $jum_data = mysqli_num_rows($query_jum);
                                 $jum_halaman = ceil($jum_data / $batas);
@@ -325,18 +325,18 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                         $sebelum = $halaman - 1;
                                         $setelah = $halaman + 1;
                                         if (isset($_GET["katakunci"])) {
-                                            $katakunci_domisili = $_GET["katakunci"];
+                                            $katakunci_produk = $_GET["katakunci"];
                                             if ($halaman != 1) {
                                                 echo "<li class='page-item'><a class='page-link'
-                        	href='domisili.php?katakunci=$katakunci_domisili&halaman=1'>
+                        	href='produk.php?katakunci=$katakunci_produk&halaman=1'>
                         	First</a></li>";
                                                 echo "<li class='page-item'><a class='page-link'
-                        	href='domisili.php?katakunci=$katakunci_domisili&halaman=$sebelum'> 18.		«</a></li>";
+                        	href='produk.php?katakunci=$katakunci_produk&halaman=$sebelum'> 18.		«</a></li>";
                                             }
                                             for ($i = 1; $i <= $jum_halaman; $i++) {
                                                 if ($i != $halaman) {
                                                     echo "<li class='page-item'><a class='page-link'
-                                	href='domisili.php?katakunci=$katakunci_domisili&halaman=$i'>
+                                	href='produk.php?katakunci=$katakunci_produk&halaman=$i'>
                                 	$i</a></li>";
                                                 } else {
                                                     echo "<li class='page-item'>
@@ -345,23 +345,23 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                             }
                                             if ($halaman != $jum_halaman) {
                                                 echo "<li class='page-item'><a class='page-link'
-                                	href='domisili.php?katakunci=$katakunci_domisili&halaman=$setelah'>
+                                	href='produk.php?katakunci=$katakunci_produk&halaman=$setelah'>
                                 		»</a></li>";
                                                 echo "<li class='page-item'><a class='page-link'
-                                		href='domisili.php?katakunci=$katakunci_domisili&=$jum_halaman'>
+                                		href='produk.php?katakunci=$katakunci_produk&=$jum_halaman'>
                                 		Last</a></li>";
                                             }
                                         } else {
                                             if ($halaman != 1) {
                                                 echo "<li class='page-item'><a class='page-link'
-                                	href='domisili.php?halaman=1'>First</a></li>";
+                                	href='produk.php?halaman=1'>First</a></li>";
                                                 echo "<li class='page-item'><a class='page-link'
-                                	href='domisili.php?halaman=$sebelum'>«</a></li>";
+                                	href='produk.php?halaman=$sebelum'>«</a></li>";
                                             }
                                             for ($i = 1; $i <= $jum_halaman; $i++) {
                                                 if ($i != $halaman) {
                                                     echo "<li class='page-item'><a class='page-link'
-                                	href='domisili.php?halaman=$i'>$i</a></li>";
+                                	href='produk.php?halaman=$i'>$i</a></li>";
                                                 } else {
                                                     echo "<li class='page-item'><a class='page-
                                 	link'>$i</a></li>";
@@ -369,9 +369,9 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                             }
                                             if ($halaman != $jum_halaman) {
                                                 echo "<li class='page-item'><a class='page-link'
-                                	href='domisili.php?halaman=$setelah'>»</a></li>";
+                                	href='produk.php?halaman=$setelah'>»</a></li>";
                                                 echo "<li class='page-item'><a class='page-link'
-                                	href='domisili.php?halaman=$jum_halaman'>Last</a></li>";
+                                	href='produk.php?halaman=$jum_halaman'>Last</a></li>";
                                             }
                                         }
                                     } ?>

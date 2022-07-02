@@ -1,6 +1,14 @@
 <?php
 include('../koneksi/koneksi.php');
-
+if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
+    if ($_GET['aksi'] == 'hapus') {
+        $kode_progres = $_GET['data'];
+        //hapus 
+        $sql_dh = "delete from `progres_projek`
+  	where `kode_projek_id` = '$kode_progres'";
+        mysqli_query($koneksi, $sql_dh);
+    }
+}
 
 ?>
 
@@ -141,6 +149,9 @@ include('../koneksi/koneksi.php');
                     <a href="industri.php" class="sidebar-link">
                         <i class="bx bx-briefcase"> </i> <span>Industri</span></i>
                     </a>
+                    <a href="produk.php" class="sidebar-link">
+                        <i class='bx bxs-shopping-bag'></i> <span>Produk</span></i>
+                    </a>
                     <a href="status.php" class="sidebar-link">
                         <i class="bx bx-loader"> </i> <span>Status</span></i>
                     </a>
@@ -155,7 +166,7 @@ include('../koneksi/koneksi.php');
                     <a href="akun.php" class="sidebar-link">
                         <i class="bx bxs-user-account"> </i> <span>Pengaturan</span></i>
                     </a>
-                    <a href="./" class="sidebar-link" style="color: red;">
+                    <a href="logout.php" class="sidebar-link" style="color: red;">
                         <i class="bx bx-log-out-circle"> </i> <span>Log Out</span></i>
                     </a>
                 </div>
@@ -211,11 +222,62 @@ include('../koneksi/koneksi.php');
                                     <textarea type="textarea" rows="6" class="form-control" id="part_name" name="deskripsi" placeholder="Isi Deskripsi"></textarea>
                                     <button type="submit" class="btn btn-primary second-text float-end mt-5 mb-3 "> <i class="fas fa-plus me-2"></i>Tambah </button>
                                 </div>
-
                             </div>
 
                         </div>
                     </form>
+                    <div class="col mt-5">
+
+                        <table class="table bg-white rounded shadow-sm  table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50">No</th>
+                                    <th scope="col">progres</th>
+                                    <th scope="col">Aksi</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $batas = 8;
+                                if (!isset($_GET['halaman'])) {
+                                    $posisi = 0;
+                                    $halaman = 1;
+                                } else {
+                                    $halaman = $_GET['halaman'];
+                                    $posisi = ($halaman - 1) * $batas;
+                                }
+                                //menampilkan data progres
+                                $sql_h = "select `kode_projek_id`, `deskripsi` from `progres_projek` ";
+                                if (isset($_GET["katakunci"])) {
+                                    $katakunci_progres = $_GET["katakunci"];
+                                    $sql_h .= " where `deskripsi` LIKE '%$katakunci_progres%'";
+                                }
+                                $sql_h .= "order by `kode_projek_id` DESC limit $posisi, $batas";
+                                $query_h = mysqli_query($koneksi, $sql_h);
+                                $no = 1;
+                                while ($data_h = mysqli_fetch_row($query_h)) {
+                                    $kode_projek_id = $data_h[0];
+                                    $deskripsi = $data_h[1];
+                                ?>
+                                    <tr>
+                                        <td data-label="No"><?php echo $no; ?></td>
+                                        <td data-label="progres"><?php echo $deskripsi; ?></td>
+                                        <td data-label="Aksi">
+
+                                            <a href="javascript:if(confirm('Anda yakin ingin menghapus data?
+                              <?php echo $deskripsi; ?>?'))	window.location.href = 'progres.php?aksi=hapus&data=<?php echo
+                                                                                                                    $kode_projek_id; ?>'" class="btn deletebtn    danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
+
+                                        <?php
+                                        $no++;
+                                    } ?>
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
                 </div>
             </div>
         </div>
