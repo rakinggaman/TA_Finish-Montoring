@@ -377,7 +377,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                             $posisi = ($halaman - 1) * $batas;
                                         }
                                         //menampilkan data projek
-                                        $sql_pjk = "SELECT kp.kode_projek, kp.pelanggan, kd.domisili, ki.industri, pp.produk, kp.instagram, kp.facebook
+                                        $sql_pjk = "SELECT kp.kode_projek, kp.kode_pelanggan, kp.pelanggan, kd.domisili, ki.industri, pp.produk, kp.instagram, kp.facebook
                                     FROM projek kp INNER JOIN domisili kd ON kp.kode_domisili = kd.kode_domisili
                                     INNER JOIN industri ki ON kp.kode_industri = ki.kode_industri
                                     INNER JOIN produk pp ON kp.kode_produk = pp.kode_produk";
