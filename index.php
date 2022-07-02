@@ -85,7 +85,7 @@ include('koneksi/koneksi.php');
 <body>
     <section class="searchbar">
 
-        <form method="get" action="index.php">
+        <form method="POST" action="index.php">
 
             <div class="wrap">
 
@@ -104,13 +104,13 @@ include('koneksi/koneksi.php');
                 <div class="table-responsive">
                     <tbody>
                         <?php
-                        if (isset($_GET['katakunci'])) {
+                        if (isset($_POST['katakunci'])) {
                             $batas = 8;
-                            if (!isset($_GET['halaman'])) {
+                            if (!isset($_POST['halaman'])) {
                                 $posisi = 0;
                                 $halaman = 1;
                             } else {
-                                $halaman = $_GET['halaman'];
+                                $halaman = $_POST['halaman'];
                                 $posisi = ($halaman - 1) * $batas;
                             }
                             //menampilkan data projek
@@ -118,8 +118,8 @@ include('koneksi/koneksi.php');
                                     FROM projek kp INNER JOIN domisili kd ON kp.kode_domisili = kd.kode_domisili
                                     INNER JOIN industri ki ON kp.kode_industri = ki.kode_industri
                                     INNER JOIN produk pp ON kp.kode_produk = pp.kode_produk";
-                            if (isset($_GET["katakunci"])) {
-                                $katakunci_pjk = $_GET["katakunci"];
+                            if (isset($_POST["katakunci"])) {
+                                $katakunci_pjk = $_POST["katakunci"];
                                 $_SESSION['katakunci_projek'] = $katakunci_pjk;
                                 $sql_pjk .= " WHERE kp.kode_pelanggan LIKE '%$katakunci_pjk%' ";
                             }
