@@ -121,7 +121,7 @@ include('koneksi/koneksi.php');
                             if (isset($_POST["katakunci"])) {
                                 $katakunci_pjk = $_POST["katakunci"];
                                 $_SESSION['katakunci_projek'] = $katakunci_pjk;
-                                $sql_pjk .= " WHERE kp.kode_pelanggan LIKE '%$katakunci_pjk%' ";
+                                $sql_pjk .= " WHERE kp.kode_pelanggan = '$katakunci_pjk' ";
                             }
                             $sql_pjk .= " order by `pelanggan` DESC limit $posisi, $batas";
                             $query_pjk = mysqli_query($koneksi, $sql_pjk);

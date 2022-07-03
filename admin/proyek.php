@@ -377,10 +377,12 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                             $posisi = ($halaman - 1) * $batas;
                                         }
                                         //menampilkan data projek
-                                        $sql_pjk = "SELECT kp.kode_projek, kp.kode_pelanggan, kp.pelanggan, kd.domisili, ki.industri, pp.produk, kp.instagram, kp.facebook
-                                    FROM projek kp INNER JOIN domisili kd ON kp.kode_domisili = kd.kode_domisili
-                                    INNER JOIN industri ki ON kp.kode_industri = ki.kode_industri
-                                    INNER JOIN produk pp ON kp.kode_produk = pp.kode_produk";
+                                        $sql_pjk = "SELECT projek.kode_projek, projek.kode_pelanggan, projek.pelanggan, domisili.domisili, industri.industri, produk.produk, projek.instagram, projek.facebook, projek.nama_perwakilan, projek.wa_perwakilan, status.status,
+                                        projek.gambar_projek, projek.harga_projek
+                                       FROM projek projek INNER JOIN domisili domisili ON projek.kode_domisili = domisili.kode_domisili
+                                       INNER JOIN industri industri ON projek.kode_industri = industri.kode_industri
+                                       INNER JOIN status status ON projek.kode_status = status.kode_status
+                                       INNER JOIN produk produk ON projek.kode_produk = produk.kode_produk";
                                         if (isset($_GET["katakunci"])) {
                                             $katakunci_pjk = $_GET["katakunci"];
                                             $_SESSION['katakunci_projek'] = $katakunci_pjk;
@@ -487,11 +489,11 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="recipient-name" class="col-form-label float-start">Nama Perwakilan :</label>
-                                                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Isi Nama Perwakilan" value="<?= $data_pjk['nama']; ?>" />
+                                                                            <input type="text" class="form-control" id="nama" name="nama_perwakilan" placeholder="Isi Nama Perwakilan" value="<?= $data_pjk['nama_perwakilan']; ?>" />
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="recipient-name" class="col-form-label float-start">Wa :</label>
-                                                                            <input type="text" class="form-control" id="wa" name="wa" placeholder="Isi Whatsapp Perwakilan" value="<?= $data_pjk['wa']; ?>" />
+                                                                            <input type="text" class="form-control" id="wa" name="wa_perwakilan" placeholder="Isi Whatsapp Perwakilan" value="<?= $data_pjk['wa_perwakilan']; ?>" />
 
                                                                         </div>
                                                                         <div class="mb-3">
@@ -521,7 +523,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="recipient-name" class="col-form-label float-start">Harga :</label>
-                                                                            <input type="text" class="form-control" id="harga" name="harga" value="<?= $data_pjk['harga']; ?>" />
+                                                                            <input type="text" class="form-control" id="harga" name="harga" value="<?= $data_pjk['harga_projek']; ?>" />
 
                                                                             <button type="submit" class="btn btn-primary second-text float-end mt-5 mb-3 "> <i class="bx bx-edit me-2"></i>Edit </button>
                                                                         </div>

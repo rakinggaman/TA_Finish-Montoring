@@ -8,6 +8,10 @@
     where `kode_projek` = '$id_projek'";
                 mysqli_query($koneksi, $sql_dh);
             }
+            if (!isset($_SESSION["login"])) {
+                header("location: index.php");
+                exit;
+            }
         }
         ?> -->
 <!DOCTYPE html>

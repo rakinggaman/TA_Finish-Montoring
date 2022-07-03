@@ -179,7 +179,7 @@ if (isset($_SESSION['id_user'])) {
                 <div class="container-fluid mt-5 p-5 ">
                     <div class="card">
 
-                        <form class="form-horizontal" method="post" action="index.php?include=konfirmasi_edit_profile.php">
+                        <form class="form-horizontal" method="post" action="konfirmasi_edit_profile.php">
                             <?php if (!empty($_GET['notif'])) { ?>
                                 <?php if ($_GET['notif'] == "editkosong") { ?>
                                     <div class="alert alert-danger" role="alert">

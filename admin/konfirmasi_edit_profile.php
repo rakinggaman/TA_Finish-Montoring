@@ -13,6 +13,6 @@ if (isset($_SESSION['id_user'])) {
 		$sql = "UPDATE `akun` SET `nama`='$nama', `email`='$email'
 	WHERE `id_user`='$id_user'";
 		mysqli_query($koneksi, $sql);
-		header("Location:dashboard.php?notif=editberhasil");
+		header("Location:profile.php?notif=editberhasil");
 	}
 }
