@@ -373,8 +373,10 @@ if (!isset($_SESSION["login"])) {
                                             $nama_perwakilan    = $data_pjk[8];
                                             $wa_perwakilan      = $data_pjk[9];
                                             $kode_status        = $data_pjk[10];
-                                            $gambar_projek        = $data_pjk[11];
+                                            $gambar_projek      = $data_pjk[11];
                                             $harga_projek       = $data_pjk[12];
+
+                                            echo $kode_domisili;
 
                                         ?>
                                             <tr>
@@ -419,8 +421,11 @@ if (!isset($_SESSION["login"])) {
                                                                                     $kode_dom = $data_j[0];
                                                                                     $domisili = $data_j[1];
                                                                                 ?>
-                                                                                    <option value="<? echo $data_pjk['domisili']; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
-                                                                                        <?php echo $domisili; ?><?php } ?> </option>
+                                                                                    <!-- <option value="<? echo $data_pjk['domisili']; ?>" <?php if ($domisili == $kode_domisili) { ?> selected="selected" <?php } ?>> yang ini punyamu -->
+                                                                                    <option value="<?php echo $kode_dom ?>" <?= ($domisili == $kode_domisili) ? 'selected' : '' ?>>
+                                                                                        <?php echo $domisili  ?>
+                                                                                    </option>
+                                                                                <?php } ?>
                                                                             </select>
 
                                                                         </div>
@@ -435,8 +440,13 @@ if (!isset($_SESSION["login"])) {
                                                                                     $kode_dom = $data_j[0];
                                                                                     $industri = $data_j[1];
                                                                                 ?>
-                                                                                    <option value="<? echo $data_pjk['industri']; ?>" <?php if ($kode_dom == $kode_industri) { ?> selected="selected" <?php } ?>>
-                                                                                        <?php echo $industri; ?><?php } ?> </option>
+                                                                                    <!-- KELIRUNYA DIBAGIAN BAWAH INI -->
+                                                                                    <!-- JADI YANG VALUE ITU KODE NYA, TERUS KODE DOM ITU GANTI DENGAN INDUSTRI -->
+                                                                                    <!-- <option value="<?php echo $data_pjk['industri']; ?>" <?php if ($kode_dom == $kode_industri) { ?> selected="selected" <?php } ?>> -->
+                                                                                    <option value="<?php echo $kode_dom ?>" <?= ($industri == $kode_industri) ? 'selected' : '' ?>>
+                                                                                        <?php echo $industri; ?>
+                                                                                    </option>
+                                                                                <?php } ?>
                                                                             </select>
                                                                         </div>
                                                                         <div class="mb-3">
@@ -450,8 +460,11 @@ if (!isset($_SESSION["login"])) {
                                                                                     $kode_dom = $data_j[0];
                                                                                     $produk = $data_j[1];
                                                                                 ?>
-                                                                                    <option value="<? echo $data_pjk['produk']; ?>" <?php if ($kode_dom == $kode_produk) { ?> selected="selected" <?php } ?>>
-                                                                                        <?php echo $produk; ?><?php } ?></option>
+                                                                                    <!-- <option value="<?php echo $data_pjk['produk']; ?>" <?php if ($kode_dom == $kode_produk) { ?> selected="selected" <?php } ?>> -->
+                                                                                    <option value="<?php echo $kode_dom ?>" <?= ($produk == $kode_produk) ? 'selected' : '' ?>>
+                                                                                        <?php echo $produk; ?>
+                                                                                    </option>
+                                                                                <?php } ?>
                                                                             </select>
 
                                                                         </div>
@@ -485,8 +498,11 @@ if (!isset($_SESSION["login"])) {
                                                                                     $kode_dom = $data_j[0];
                                                                                     $status = $data_j[1];
                                                                                 ?>
-                                                                                    <option value="<? echo $data_pjk['status']; ?>" <?php if ($kode_dom == $kode_status) { ?> selected="selected" <?php } ?>>
-                                                                                        <?php echo $status; ?><?php } ?> </option>
+                                                                                    <!-- <option value="<?php echo $data_pjk['status']; ?>" <?php if ($kode_dom == $kode_status) { ?> selected="selected" <?php } ?>> -->
+                                                                                    <option value="<?php echo $kode_dom ?>" <?= ($status == $kode_status) ? 'selected' : '' ?>>
+                                                                                        <?php echo $status; ?>
+                                                                                    </option>
+                                                                                <?php } ?>
                                                                             </select>
 
                                                                         </div>

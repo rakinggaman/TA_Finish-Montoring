@@ -29,12 +29,12 @@ if (!empty($gambar_projek)) {
   if ($ukuran < 1044070) {
     $xx = $filename;
     move_uploaded_file($_FILES['gambar_projek']['tmp_name'], "../img/" . $filename);
-    $query = "UPDATE projek SET pelanggan='$pelanggan', kode_pelanggan='$kode_pelanggan', kode_domisili=$kode_domisili, kode_industri=$kode_industri, kode_produk=$kode_produk, instagram='$instagram', facebook='$facebook', nama_perwakilan='$nama', wa_perwakilan='$wa', kode_status=$status, gambar_projek='$gambar_projek', harga_projek=$harga WHERE kode_projek=$kode_projek";
+    $query = "UPDATE projek SET pelanggan='$pelanggan', kode_pelanggan='$kode_pelanggan', kode_domisili='$kode_domisili', kode_industri='$kode_industri', kode_produk='$kode_produk', instagram='$instagram', facebook='$facebook', nama_perwakilan='$nama', wa_perwakilan='$wa', kode_status='$status', gambar_projek='$gambar_projek', harga_projek='$harga' WHERE kode_projek='$kode_projek'";
     mysqli_query($koneksi, $query);
     $tambah++;
   }
 } else {
-  $query = "UPDATE projek SET pelanggan='$pelanggan', kode_pelanggan='$kode_pelanggan', kode_domisili=$kode_domisili, kode_industri=$kode_industri, kode_produk=$kode_produk, instagram='$instagram', facebook='$facebook', nama_perwakilan='$nama', wa_perwakilan='$wa', kode_status=$status, harga_projek=$harga WHERE kode_projek=$kode_projek";
+  $query = "UPDATE projek SET pelanggan='$pelanggan', kode_pelanggan='$kode_pelanggan', kode_domisili='$kode_domisili', kode_industri='$kode_industri', kode_produk='$kode_produk', instagram='$instagram', facebook='$facebook', nama_perwakilan='$nama', wa_perwakilan='$wa', kode_status='$status', harga_projek='$harga' WHERE kode_projek='$kode_projek'";
   mysqli_query($koneksi, $query);
   $tambah++;
 }
