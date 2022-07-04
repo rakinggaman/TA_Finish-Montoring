@@ -10,6 +10,14 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
     }
 }
 ?>
+<?php
+session_start();
+
+if (!isset($_SESSION["login"])) {
+    header("location:index.php");
+    exit;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -128,47 +136,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
 <body style="background-color: #fdfdfd;">
     <div class="dashboard-page">
         <div class="wrapper">
-            <div class="sidebar">
-                <div class="sidebar-header mb-5">
-                    <a href="dashboard.php" class="sidebar-logo fs-5 fw-bold mb-3"> Sistem Monitoring </a>
-                    <button class="btn btn-white d-block d-md-none" type="button" onclick="sidebarMenu()">
-                        <i class="bx bx-menu"></i>
-                    </button>
-                </div>
-
-                <div class="sidebar-menu " id="sidebarMenu">
-                    <!--Sidebar Top-->
-                    <a href="dashboard.php" class="sidebar-link">
-                        <i class="bx bx-grid-alt"></i> <span>Dashboard</span></i>
-                    </a>
-                    <a href="domisili.php" class="sidebar-link">
-                        <i class="bx bxs-building"></i> <span>Domisili</span></i>
-                    </a>
-                    <a href="industri.php" class="sidebar-link">
-                        <i class="bx bx-briefcase"> </i> <span>Industri</span></i>
-                    </a>
-                    <a href="produk.php" class="sidebar-link">
-                        <i class='bx bxs-shopping-bag'></i> <span>Produk</span></i>
-                    </a>
-                    <a href="status.php" class="sidebar-link">
-                        <i class="bx bx-loader"> </i> <span>Status</span></i>
-                    </a>
-                    <a href="proyek.php" class="sidebar-link">
-                        <i class="bx bx-folder-open"> </i> <span>Proyek</span></i>
-                    </a>
-                    <a href="progres.php" class="sidebar-link">
-                        <i class="bx bx-loader-circle"> </i> <span>Progres</span></i>
-                    </a>
-                    <hr class="my-3" style="color: white;">
-                    <!--Sidebar Middle-->
-                    <a href="akun.php" class="sidebar-link">
-                        <i class="bx bxs-user-account"> </i> <span>Pengaturan</span></i>
-                    </a>
-                    <a href="logout.php" class="sidebar-link" style="color: red;">
-                        <i class="bx bx-log-out-circle"> </i> <span>Log Out</span></i>
-                    </a>
-                </div>
-            </div>
+            <?php include("sidebar.php") ?>
             <div class="content">
                 <div class="content-header d-flex align-items-center justify-content-between">
                     <h2 class="content-title">Daftar Proyek</h2>
@@ -377,7 +345,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                             $posisi = ($halaman - 1) * $batas;
                                         }
                                         //menampilkan data projek
-                                        $sql_pjk = "SELECT projek.kode_projek, projek.kode_pelanggan, projek.pelanggan, domisili.domisili, industri.industri, produk.produk, projek.instagram, projek.facebook, projek.nama_perwakilan, projek.wa_perwakilan, status.status,
+                                        $sql_pjk = "SELECT projek.kode_projek, projek.pelanggan, projek.kode_pelanggan, domisili.domisili, industri.industri, produk.produk, projek.instagram, projek.facebook, projek.nama_perwakilan, projek.wa_perwakilan, status.status,
                                         projek.gambar_projek, projek.harga_projek
                                        FROM projek projek INNER JOIN domisili domisili ON projek.kode_domisili = domisili.kode_domisili
                                        INNER JOIN industri industri ON projek.kode_industri = industri.kode_industri
@@ -386,18 +354,27 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                         if (isset($_GET["katakunci"])) {
                                             $katakunci_pjk = $_GET["katakunci"];
                                             $_SESSION['katakunci_projek'] = $katakunci_pjk;
-                                            $sql_pjk .= " WHERE kp.pelanggan LIKE '%$katakunci_pjk%' 
-                                        OR kd.domisili LIKE '%$katakunci_pjk%' OR ki.industri LIKE '%$katakunci_pjk%' OR pp.produk LIKE '%$katakunci_pjk%'";
+                                            $sql_pjk .= " WHERE projek.pelanggan LIKE '%$katakunci_pjk%' 
+                                        OR domisili.domisili LIKE '%$katakunci_pjk%' OR industri.industri LIKE '%$katakunci_pjk%' OR produk.produk LIKE '%$katakunci_pjk%'";
                                         }
                                         $sql_pjk .= " order by `pelanggan` DESC limit $posisi, $batas";
                                         $query_pjk = mysqli_query($koneksi, $sql_pjk);
                                         $no = 1;
                                         while ($data_pjk = mysqli_fetch_array($query_pjk)) {
                                             $id = $data_pjk[0];
-                                            // $pelanggan = $data_pjk[1];
-                                            // $domisili = $data_pjk[2];
-                                            // $industri = $data_pjk[3];
-                                            // $produk = $data_pjk[4];
+                                            $pelanggan = $data_pjk[1];
+                                            $kode_pelanggan    = $data_pjk[1];
+                                            $pelanggan          = $data_pjk[2];
+                                            $kode_domisili      = $data_pjk[3];
+                                            $kode_industri      = $data_pjk[4];
+                                            $kode_produk        = $data_pjk[5];
+                                            $instagram          = $data_pjk[6];
+                                            $facebook           = $data_pjk[7];
+                                            $nama_perwakilan    = $data_pjk[8];
+                                            $wa_perwakilan      = $data_pjk[9];
+                                            $kode_status        = $data_pjk[10];
+                                            $gambar_projek        = $data_pjk[11];
+                                            $harga_projek       = $data_pjk[12];
 
                                         ?>
                                             <tr>
@@ -417,8 +394,8 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form class="form-horizontal" method="post" action="konfirmasi_edit_proyek.php">
-                                                                        <input type="hidden" name="kode" value="<?= $data_pjk['kode_projek'] ?>">
+                                                                    <form class="form-horizontal" method="post" action="konfirmasi_edit_proyek.php" enctype="multipart/form-data">
+                                                                        <input type="hidden" name="kode_projek" value="<?= $data_pjk['kode_projek'] ?>">
                                                                         <div class="mb-3">
                                                                             <label for="recipient-name" class="col-form-label float-start">Pelanggan :</label>
                                                                             <input type="text" class="form-control" id="part_name" name="pelanggan" value="<?= $data_pjk['pelanggan']; ?>" />
@@ -433,6 +410,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                                             <label for="recipient-name" class="col-form-label float-start">Domisili :</label>
 
                                                                             <select class="form-control" id="domisili" name="domisili">
+
                                                                                 <option value="0">- Pilih Domisili -</option>
                                                                                 <?php
                                                                                 $sql_j = "select `kode_domisili`, `domisili` from `domisili` order by `kode_domisili`";
@@ -441,8 +419,8 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                                                     $kode_dom = $data_j[0];
                                                                                     $domisili = $data_j[1];
                                                                                 ?>
-                                                                                    <option value="<?php echo $kode_dom; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
-                                                                                        <?php echo $domisili; ?><?php } ?>
+                                                                                    <option value="<? echo $data_pjk['domisili']; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
+                                                                                        <?php echo $domisili; ?><?php } ?> </option>
                                                                             </select>
 
                                                                         </div>
@@ -455,10 +433,10 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                                                 $query_j = mysqli_query($koneksi, $sql_j);
                                                                                 while ($data_j = mysqli_fetch_row($query_j)) {
                                                                                     $kode_dom = $data_j[0];
-                                                                                    $domisili = $data_j[1];
+                                                                                    $industri = $data_j[1];
                                                                                 ?>
-                                                                                    <option value="<?php echo $kode_dom; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
-                                                                                        <?php echo $domisili; ?><?php } ?>
+                                                                                    <option value="<? echo $data_pjk['industri']; ?>" <?php if ($kode_dom == $kode_industri) { ?> selected="selected" <?php } ?>>
+                                                                                        <?php echo $industri; ?><?php } ?> </option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="mb-3">
@@ -470,10 +448,10 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                                                 $query_j = mysqli_query($koneksi, $sql_j);
                                                                                 while ($data_j = mysqli_fetch_row($query_j)) {
                                                                                     $kode_dom = $data_j[0];
-                                                                                    $domisili = $data_j[1];
+                                                                                    $produk = $data_j[1];
                                                                                 ?>
-                                                                                    <option value="<?php echo $kode_dom; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
-                                                                                        <?php echo $domisili; ?><?php } ?>
+                                                                                    <option value="<? echo $data_pjk['produk']; ?>" <?php if ($kode_dom == $kode_produk) { ?> selected="selected" <?php } ?>>
+                                                                                        <?php echo $produk; ?><?php } ?></option>
                                                                             </select>
 
                                                                         </div>
@@ -505,10 +483,10 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                                                 $query_j = mysqli_query($koneksi, $sql_j);
                                                                                 while ($data_j = mysqli_fetch_row($query_j)) {
                                                                                     $kode_dom = $data_j[0];
-                                                                                    $domisili = $data_j[1];
+                                                                                    $status = $data_j[1];
                                                                                 ?>
-                                                                                    <option value="<?php echo $kode_dom; ?>" <?php if ($kode_dom == $kode_domisili) { ?> selected="selected" <?php } ?>>
-                                                                                        <?php echo $domisili; ?><?php } ?>
+                                                                                    <option value="<? echo $data_pjk['status']; ?>" <?php if ($kode_dom == $kode_status) { ?> selected="selected" <?php } ?>>
+                                                                                        <?php echo $status; ?><?php } ?> </option>
                                                                             </select>
 
                                                                         </div>
@@ -536,7 +514,7 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                                         </div>
                                                     </div>
                                                     <a href="javascript:if(confirm('Anda yakin ingin menghapus data 
-                      <?php echo $pelanggan . ' - ' . $domisili; ?>?'))
+                      <?php echo $pelanggan . ' - ' . $id; ?>?'))
                       window.location.href = 'proyek.php?aksi=hapus&data=<?php echo
                                                                             $id; ?>'" class="btn deletebtn danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
 

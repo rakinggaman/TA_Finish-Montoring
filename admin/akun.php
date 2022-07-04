@@ -10,7 +10,14 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
     }
 }
 ?>
+<?php
+session_start();
 
+if (!isset($_SESSION["login"])) {
+    header("location:index.php");
+    exit;
+}
+?>
 
 
 <!DOCTYPE html>
@@ -286,8 +293,8 @@ if ((isset($_GET['aksi'])) && (isset($_GET['data']))) {
                                     $query_h = mysqli_query($koneksi, $sql_h);
                                     $no = 1;
                                     while ($data_h = mysqli_fetch_array($query_h)) {
-                                        // $id = $data_h[0];
-                                        // $nama = $data_h[1];
+                                        $id = $data_h[0];
+                                        $nama = $data_h[1];
                                         // $email = $data_h[2];
                                         // $username = $data_h[3];
 
