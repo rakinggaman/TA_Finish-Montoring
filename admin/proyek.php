@@ -33,6 +33,7 @@ if (!isset($_SESSION["login"])) {
     <!-- CSS -->
     <link rel="stylesheet" href="asset/css/sidebar.css" type="text/css" />
     <link rel="stylesheet" href="asset/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="asset/css/table.css" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <!--Boxicons CDN LINK-->
@@ -40,97 +41,7 @@ if (!isset($_SESSION["login"])) {
     <title>Proyek</title>
 </head>
 <style>
-    body {
-        background: linear-gradient(-50deg, #ffd369 50%, #fff 50.1%);
-    }
 
-    footer {
-        background-color: #FCFCFC;
-        opacity: 0.8;
-    }
-
-    footer:hover {
-        background-color: #cccc;
-        opacity: 1;
-    }
-
-    table {
-        border: 1px solid #ccc;
-        border-collapse: collapse;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        table-layout: fixed;
-    }
-
-    table caption {
-        font-size: 1.5em;
-        margin: .5em 0 .75em;
-    }
-
-    table tr {
-
-        border: 1px solid #ddd;
-        padding: .35em;
-    }
-
-    table th,
-    table td {
-        padding: .625em;
-        text-align: center;
-    }
-
-    table th {
-        font-size: .85em;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-    }
-
-    @media screen and (max-width: 600px) {
-        table {
-            border: 0;
-        }
-
-        table caption {
-            font-size: 1.3em;
-        }
-
-        table thead {
-            border: none;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        table tr {
-            border-bottom: 3px solid #ddd;
-            display: block;
-            margin-bottom: .625em;
-        }
-
-        table td {
-            border-bottom: 1px solid #ddd;
-            display: block;
-            font-size: .8em;
-            text-align: right;
-        }
-
-        table td::before {
-
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table td:last-child {
-            border-bottom: 0;
-        }
-    }
 </style>
 
 <body style="background-color: #fdfdfd;">
@@ -146,6 +57,14 @@ if (!isset($_SESSION["login"])) {
                     </div>
                 </div>
                 <hr class="my-4">
+                <?php if (!empty($_GET['notif'])) { ?>
+                    <?php if ($_GET['notif'] == "tambahberhasil") { ?>
+                        <div class="alert alert-success" role="alert"> Data Berhasil Ditambahkan</div>
+                    <?php } else if ($_GET['notif'] == "editberhasil") { ?>
+                        <div class="alert alert-success" role="alert">
+                            Data Berhasil Diubah</div>
+                    <?php } ?>
+                <?php } ?>
                 <?php if (!empty($_GET['notif'])) { ?>
                     <?php if ($_GET['notif'] == "tambahkosong") { ?>
                         <div class="alert alert-danger" role="alert">
@@ -376,7 +295,7 @@ if (!isset($_SESSION["login"])) {
                                             $gambar_projek      = $data_pjk[11];
                                             $harga_projek       = $data_pjk[12];
 
-                                            echo $kode_domisili;
+
 
                                         ?>
                                             <tr>
@@ -386,8 +305,8 @@ if (!isset($_SESSION["login"])) {
                                                 <td data-label="Industri"><?php echo $data_pjk['industri']; ?></td>
                                                 <td data-label="Produk"> <?php echo $data_pjk['produk']; ?></td>
                                                 <td data-label="Aksi">
-                                                    <a href="detail_proyek.php?data=<?php echo $id; ?>" class="btn detailbtn second-text btn-sm"> <i class="fas fa-eye me-2"></i>Detail</a>
-                                                    <a class="btn editbtn second-text btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModaledit<?= $data_pjk['kode_projek'] ?>"> <i class="fas fa-edit me-2"></i>Edit</a>
+                                                    <a href="detail_proyek.php?data=<?php echo $id; ?>" class="detailbtn second-text btn-sm"> <i class="fas fa-eye me-2"></i>Detail</a>
+                                                    <a class="editbtn second-text btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModaledit<?= $data_pjk['kode_projek'] ?>"> <i class="fas fa-edit me-2"></i>Edit</a>
                                                     <div class="modal fade" id="exampleModaledit<?= $data_pjk['kode_projek'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
@@ -512,7 +431,7 @@ if (!isset($_SESSION["login"])) {
                                                                             <input type="file" class="form-control" id="gambar_projek" name="gambar_projek" value="<?php if (!empty($_SESSION['gambar_projek'])) {
                                                                                                                                                                         echo $_SESSION['gambar_projek'];
                                                                                                                                                                     } ?>" />
-                                                                            <h7> <span style="color: red;">maksimal 2mb</span> </h7>
+                                                                            <h7> <span style="color: red;">maksimal 2mb(tambahkan jika ingin ubah gambar)</span> </h7>
 
                                                                         </div>
                                                                         <div class="mb-3">
@@ -532,7 +451,7 @@ if (!isset($_SESSION["login"])) {
                                                     <a href="javascript:if(confirm('Anda yakin ingin menghapus data 
                       <?php echo $pelanggan . ' - ' . $id; ?>?'))
                       window.location.href = 'proyek.php?aksi=hapus&data=<?php echo
-                                                                            $id; ?>'" class="btn deletebtn danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
+                                                                            $id; ?>'" class="deletebtn danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
 
                                                 </td>
                                             <?php $no++;

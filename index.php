@@ -13,7 +13,8 @@ include('koneksi/koneksi.php');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <!--CSS-->
-    <link rel="stylesheet" href="asset/css/styles.css" />
+
+    <link rel="stylesheet" href="asset/css/styles.css" type="text/css" />
     <!--Boxicons CDN LINK-->
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
     <title>Proyek</title>
@@ -26,6 +27,19 @@ include('koneksi/koneksi.php');
     body {
         background: #f2f2f2;
         font-family: 'Open Sans', sans-serif;
+    }
+
+    .detailbtn {
+        background-color: #ffff;
+        border-color: #009d63;
+        color: #009d63;
+        text-decoration: none;
+    }
+
+    .detailbtn:hover {
+        background-color: #009d63;
+        border-color: #ffff;
+        color: #fff;
     }
 
     section {
@@ -78,14 +92,12 @@ include('koneksi/koneksi.php');
     .data {
         margin-top: 30vh;
     }
-
-    table {}
 </style>
 
 <body>
     <section class="searchbar">
 
-        <form method="POST" action="index.php">
+        <form method="GET" action="index.php">
 
             <div class="wrap">
 
@@ -104,13 +116,13 @@ include('koneksi/koneksi.php');
                 <div class="table-responsive">
                     <tbody>
                         <?php
-                        if (isset($_POST['katakunci'])) {
+                        if (isset($_GET['katakunci'])) {
                             $batas = 8;
-                            if (!isset($_POST['halaman'])) {
+                            if (!isset($_GET['halaman'])) {
                                 $posisi = 0;
                                 $halaman = 1;
                             } else {
-                                $halaman = $_POST['halaman'];
+                                $halaman = $_GET['halaman'];
                                 $posisi = ($halaman - 1) * $batas;
                             }
                             //menampilkan data projek
@@ -118,8 +130,8 @@ include('koneksi/koneksi.php');
                                     FROM projek kp INNER JOIN domisili kd ON kp.kode_domisili = kd.kode_domisili
                                     INNER JOIN industri ki ON kp.kode_industri = ki.kode_industri
                                     INNER JOIN produk pp ON kp.kode_produk = pp.kode_produk";
-                            if (isset($_POST["katakunci"])) {
-                                $katakunci_pjk = $_POST["katakunci"];
+                            if (isset($_GET["katakunci"])) {
+                                $katakunci_pjk = $_GET["katakunci"];
                                 $_SESSION['katakunci_projek'] = $katakunci_pjk;
                                 $sql_pjk .= " WHERE kp.kode_pelanggan = '$katakunci_pjk' ";
                             }
@@ -159,7 +171,7 @@ include('koneksi/koneksi.php');
                                         <td data-label="Industri"><?php echo $industri; ?></td>
                                         <td data-label="Produk"> <?php echo $produk; ?></td>
                                         <td data-label="Aksi">
-                                            <a href="detail_proyek.php?data=<?php echo $id; ?>" class="btn detailbtn second-text btn-sm"> <i class="fas fa-eye me-2"></i>Detail</a>
+                                            <a href="detail_proyek.php?data=<?php echo $id; ?>" class="detailbtn second-text btn-sm"> <i class="fas fa-eye me-2"></i>Detail</a>
                                         </td>
                                 <?php $no++;
                             }

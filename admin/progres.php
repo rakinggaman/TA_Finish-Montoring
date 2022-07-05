@@ -35,105 +35,14 @@ if (!isset($_SESSION["login"])) {
     <!-- CSS -->
     <link rel="stylesheet" href="asset/css/sidebar.css" type="text/css" />
     <link rel="stylesheet" href="asset/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="asset/css/table.css" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <!--Boxicons CDN LINK-->
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
     <title>Progres Proyek</title>
 </head>
-<style>
-    body {
-        background: linear-gradient(-50deg, #ffd369 50%, #fff 50.1%);
-    }
 
-    footer {
-        background-color: #FCFCFC;
-        opacity: 0.8;
-    }
-
-    footer:hover {
-        background-color: #cccc;
-        opacity: 1;
-    }
-
-    table {
-        border: 1px solid #ccc;
-        border-collapse: collapse;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        table-layout: fixed;
-    }
-
-    table caption {
-        font-size: 1.5em;
-        margin: .5em 0 .75em;
-    }
-
-    table tr {
-
-        border: 1px solid #ddd;
-        padding: .35em;
-    }
-
-    table th,
-    table td {
-        padding: .625em;
-        text-align: center;
-    }
-
-    table th {
-        font-size: .85em;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-    }
-
-    @media screen and (max-width: 600px) {
-        table {
-            border: 0;
-        }
-
-        table caption {
-            font-size: 1.3em;
-        }
-
-        table thead {
-            border: none;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        table tr {
-            border-bottom: 3px solid #ddd;
-            display: block;
-            margin-bottom: .625em;
-        }
-
-        table td {
-            border-bottom: 1px solid #ddd;
-            display: block;
-            font-size: .8em;
-            text-align: right;
-        }
-
-        table td::before {
-
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table td:last-child {
-            border-bottom: 0;
-        }
-    }
-</style>
 
 <body style="background-color: #fdfdfd;">
     <div class="dashboard-page">
@@ -185,6 +94,19 @@ if (!isset($_SESSION["login"])) {
                             </div>
 
                             <div class="form-group row mt-4">
+
+                                <label for="part_name" class="col-sm-3 text-end control-label col-form-label">Deskripsi</label>
+                                <div class="col-sm-6 ">
+                                    <input type="file" class="form-control" id="gambar" name="gambar" value="<?php if (!empty($_SESSION['gambar'])) {
+                                                                                                                    echo $_SESSION['gambar'];
+                                                                                                                } ?>" />
+                                    <h7> <span style="color: red;">maksimal 2mb</span> </h7>
+
+
+                                </div>
+                            </div>
+                            <div class="form-group row mt-4">
+
                                 <label for="part_name" class="col-sm-3 text-end control-label col-form-label">Deskripsi</label>
                                 <div class="col-sm-6 ">
                                     <textarea type="textarea" rows="6" class="form-control" id="part_name" name="deskripsi" placeholder="Isi Deskripsi"></textarea>
@@ -235,7 +157,7 @@ if (!isset($_SESSION["login"])) {
 
                                             <a href="javascript:if(confirm('Anda yakin ingin menghapus data?
                               <?php echo $deskripsi; ?>?'))	window.location.href = 'progres.php?aksi=hapus&data=<?php echo
-                                                                                                                    $kode_projek_id; ?>'" class="btn deletebtn    danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
+                                                                                                                    $kode_projek_id; ?>'" class="deletebtn    danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
 
                                         <?php
                                         $no++;

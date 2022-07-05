@@ -14,12 +14,10 @@ if (!isset($_SESSION["login"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="vendors/boxicons-2.1.2/css/boxicons.min.css">
-    <link rel="stylesheet" href="vendors/swiperjs/swiper-bundle.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="asset/css/sidebar.css" type="text/css" />
     <link rel="stylesheet" href="asset/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="asset/css/table.css" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <!--Boxicons CDN LINK-->
@@ -27,81 +25,7 @@ if (!isset($_SESSION["login"])) {
     <title>Dashboard</title>
 
 </head>
-<style>
-    table {
-        border: 1px solid #ccc;
-        border-collapse: collapse;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        table-layout: fixed;
-    }
 
-    table caption {
-        font-size: 1.5em;
-        margin: .5em 0 .75em;
-    }
-
-
-
-    table th,
-    table td {
-        padding: .625em;
-        text-align: center;
-    }
-
-    table th {
-        font-size: .85em;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-    }
-
-    @media screen and (max-width: 600px) {
-        table {
-            border: 0;
-        }
-
-        table caption {
-            font-size: 1.3em;
-        }
-
-        table thead {
-            border: none;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        table tr {
-            border-bottom: 3px solid #ddd;
-            display: block;
-            margin-bottom: .625em;
-        }
-
-        table td {
-            border-bottom: 1px solid #ddd;
-            display: block;
-            font-size: .8em;
-            text-align: right;
-        }
-
-        table td::before {
-
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table td:last-child {
-            border-bottom: 0;
-        }
-    }
-</style>
 
 <body style="background-color: #fdfdfd;">
     <div class="dashboard-page">

@@ -32,7 +32,6 @@ if (isset($_GET['data'])) {
     //$deskripsi          = array($data_m[12]);
     $deskripsi          = $data_m[13];
     $created_at         = $data_m[14];
-    var_dump($data_m);
   }
 }
 ?>
@@ -46,8 +45,7 @@ if (isset($_GET['data'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <!--CSS-->
-  <link rel="stylesheet" href="asset/css/styles.css" />
+
   <!--Boxicons CDN LINK-->
   <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
   <title>Detail Proyek</title>

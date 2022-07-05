@@ -142,7 +142,14 @@ if (!isset($_SESSION["login"])) {
                     </div>
                 </div>
                 <hr class="my-4">
-
+                <?php if (!empty($_GET['notif'])) { ?>
+                    <?php if ($_GET['notif'] == "tambahberhasil") { ?>
+                        <div class="alert alert-success" role="alert"> Data Berhasil Ditambahkan</div>
+                    <?php } else if ($_GET['notif'] == "editberhasil") { ?>
+                        <div class="alert alert-success" role="alert">
+                            Data Berhasil Diubah</div>
+                    <?php } ?>
+                <?php } ?>
                 <div class="container-fluid mt-5 p-5 ">
                     <div class="card">
 
