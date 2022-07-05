@@ -6,7 +6,7 @@ if (isset($_GET['data'])) {
   $_SESSION['kode_projek'] = $kode_projek;
   //get data projek
   $sql_m = "SELECT projek.kode_projek, projek.kode_pelanggan, projek.pelanggan, domisili.domisili, industri.industri, produk.produk, projek.instagram, projek.facebook, projek.nama_perwakilan, projek.wa_perwakilan, status.status ,
-   projek.gambar_projek, projek.harga_projek , progres_projek.deskripsi ,  progres_projek.created_at
+   projek.gambar_projek, projek.harga_projek , progres_projek.gambar, progres_projek.deskripsi ,  progres_projek.created_at
   FROM projek projek INNER JOIN domisili domisili ON projek.kode_domisili = domisili.kode_domisili
   INNER JOIN industri industri ON projek.kode_industri = industri.kode_industri
   INNER JOIN produk produk ON projek.kode_produk = produk.kode_produk
@@ -32,6 +32,7 @@ if (isset($_GET['data'])) {
     //$deskripsi          = array($data_m[12]);
     $deskripsi          = $data_m[13];
     $created_at         = $data_m[14];
+    $gambar         = $data_m[14];
   }
 }
 ?>
@@ -124,6 +125,8 @@ if (isset($_GET['data'])) {
                   ?>
                     <ul>
                       <li><?= $data_progress['deskripsi'] ?>, <?= $data_progress['created_at'] ?></li>
+                      <img src="../img/<?= $data_progress['gambar'] ?>" style="width :20%;">
+
                     </ul>
                   <?php
                   }

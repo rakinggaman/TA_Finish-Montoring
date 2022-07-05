@@ -123,6 +123,7 @@ if (!isset($_SESSION["login"])) {
                                 <tr>
                                     <th scope="col" width="50">No</th>
                                     <th scope="col">progres</th>
+                                    <th scope="col">gambar</th>
                                     <th scope="col">Aksi</th>
 
                                 </tr>
@@ -138,7 +139,7 @@ if (!isset($_SESSION["login"])) {
                                     $posisi = ($halaman - 1) * $batas;
                                 }
                                 //menampilkan data progres
-                                $sql_h = "select `kode_projek_id`, `deskripsi` from `progres_projek` ";
+                                $sql_h = "select `kode_projek_id`, `deskripsi` , `gambar` from `progres_projek` ";
                                 if (isset($_GET["katakunci"])) {
                                     $katakunci_progres = $_GET["katakunci"];
                                     $sql_h .= " where `deskripsi` LIKE '%$katakunci_progres%'";
@@ -149,10 +150,12 @@ if (!isset($_SESSION["login"])) {
                                 while ($data_h = mysqli_fetch_row($query_h)) {
                                     $kode_projek_id = $data_h[0];
                                     $deskripsi = $data_h[1];
+                                    $gambar = $data_h[2];
                                 ?>
                                     <tr>
                                         <td data-label="No"><?php echo $no; ?></td>
                                         <td data-label="progres"><?php echo $deskripsi; ?></td>
+                                        <td data-label="progres"><img style="width: 20%;" src="../img/<?php echo $gambar; ?> "> </td>
                                         <td data-label="Aksi">
 
                                             <a href="javascript:if(confirm('Anda yakin ingin menghapus data?
