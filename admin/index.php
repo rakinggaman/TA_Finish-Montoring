@@ -27,7 +27,7 @@
             <?php } else if ($_GET['gagal'] == "passKosong") { ?>
                 <span class="text-danger"> Maaf Password Tidak Boleh Kosong </span>
             <?php } else { ?>
-                <span class="text-danger"> Maaf Username dan Password Anda Salah </span>
+                <span class="text-danger"> Maaf Username atau Password Anda Salah </span>
             <?php } ?>
         <?php } ?>
         <form action="konfirmasi_login.php" method="post">
