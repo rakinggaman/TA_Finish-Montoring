@@ -151,20 +151,20 @@ if (!isset($_SESSION["login"])) {
                                     $kode_projek_id = $data_h[0];
                                     $deskripsi = $data_h[1];
                                     $gambar = $data_h[2];
-                                ?>
-                                    <tr>
-                                        <td data-label="No"><?php echo $no; ?></td>
-                                        <td data-label="progres"><?php echo $deskripsi; ?></td>
-                                        <td data-label="progres"><img style="width: 20%;" src="../img/<?php echo $gambar; ?> "> </td>
-                                        <td data-label="Aksi">
+                                ?>.
+                                <tr>
+                                    <td data-label="No"><?php echo $no; ?></td>
+                                    <td data-label="progres"><?php echo $deskripsi; ?></td>
 
-                                            <a href="javascript:if(confirm('Anda yakin ingin menghapus data?
+                                    <td data-label="progres"><img style="width: 20%;" src="../img/<?php echo $gambar != '' ?  $gambar : '../img/placeholder.png'; ?> "> </td>
+                                    <td data-label="Aksi">
+                                        <a href="javascript:if(confirm('Anda yakin ingin menghapus data?
                               <?php echo $deskripsi; ?>?'))	window.location.href = 'progres.php?aksi=hapus&data=<?php echo
                                                                                                                     $kode_projek_id; ?>'" class="deletebtn    danger-text btn-sm"><i class="fas fa-trash me-2"></i>Delete</a>
 
-                                        <?php
-                                        $no++;
-                                    } ?>
+                                    <?php
+                                    $no++;
+                                } ?>
                             </tbody>
                         </table>
 
