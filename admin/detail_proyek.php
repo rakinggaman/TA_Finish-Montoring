@@ -108,7 +108,7 @@ if (isset($_GET['data'])) {
               </tr>
               <tr>
                 <td width="20%"><strong>Gambar Proyek<strong></td>
-                <td width="80%"><img style="width:60%;" src=" ../img/<?php echo $gambar_projek; ?>">
+                <td width="80%"><img style="width: 20%;" src="../img/<?php echo $gambar != '' ?  $gambar : '../img/placeholder.png'; ?> ">
               </tr>
               <tr>
                 <td width="20%"><strong>Harga<strong></td>
